@@ -32,7 +32,8 @@ jobs:
         run: npm ci
 
       - name: Tests ausführen
-        run: npm test -- --watch=false
+        run: npm run test:ci
+
 
       - name: React App bauen
         run: npm run build
