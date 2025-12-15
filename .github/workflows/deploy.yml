@@ -41,7 +41,7 @@ jobs:
       - name: Build-Artefakt hochladen
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build
+          path: dist
 
   deploy:
     name: CD – GitHub Pages Deploy
