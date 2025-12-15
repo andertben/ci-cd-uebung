@@ -1,10 +1,11 @@
 import { render, screen, waitFor } from "@testing-library/react"
-import { vi } from "vitest"
-import BingImageOfTheDay from "../BingImageOfTheDay.jsx"
+import {afterEach, beforeEach, describe, expect, test, vi } from "vitest"
+import BingImageOfTheDay from "../BingImageOfTheDay"
 
 describe("BingImageOfTheDay", () => {
+    // Fetch pro Test mocken
     beforeEach(() => {
-        vi.spyOn(global, "fetch").mockResolvedValue({
+        vi.spyOn(globalThis, "fetch").mockResolvedValue({
             ok: true,
             json: async () => ({
                 images: [
@@ -14,7 +15,7 @@ describe("BingImageOfTheDay", () => {
                     },
                 ],
             }),
-        })
+        } as Response)
     })
 
     afterEach(() => {
@@ -30,7 +31,6 @@ describe("BingImageOfTheDay", () => {
         render(<BingImageOfTheDay />)
 
         const img = await screen.findByRole("img")
-
         expect(img).toBeInTheDocument()
         expect(img).toHaveAttribute(
             "src",
@@ -40,7 +40,8 @@ describe("BingImageOfTheDay", () => {
     })
 
     test("renders error message on fetch failure", async () => {
-        global.fetch.mockRejectedValueOnce(new Error("Fetch failed"))
+        // Fetch für diesen Test ablehnen
+        (globalThis.fetch as any) = vi.fn().mockRejectedValueOnce(new Error("Fetch failed"))
 
         render(<BingImageOfTheDay />)
 
