@@ -50,8 +50,9 @@ const BingImageOfTheDay: React.FC = () => {
 
     return (
         <div>
-            <h1>{title}</h1>
-            <img src={imageUrl} alt={title} style={{ maxWidth: "100%" }} />
+            <h1>So heißt das Bild: {title}</h1>
+            <p>Ich hab was geändert</p>
+            <img src={imageUrl} alt={title} style={{ maxWidth: "40%", height: "auto" }} />
         </div>
     );
 };
